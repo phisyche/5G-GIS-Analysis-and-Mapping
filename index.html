@@ -2,24 +2,25 @@
 <html>
 <head>
   <title>Mapping 5G</title>
-  
-  <!-- Include necessary libraries -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" href="leaflet.legend.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-
-  <!-- CSS styles -->
   <style>
-    #mymap { height: 400px; }
+    #mymap { height: 600px; }
   </style>
 </head>
 <body>
   <h1>Web Mapping the Internet</h1>
   <p>5G Broadband</p>
+  <ul>
+    <li><a href="choropleth.html">choropleth, cell tower density</a></li>  
+    <li><a href="heatmap.html"><li>heatmap</a></li>
+    <li><a href="index.html">Points</a></li>
+  </ul>
   <div id="mymap"></div>
   <script type="text/javascript" src="5gcelltowers.js"></script>
   <script>
@@ -28,10 +29,8 @@
       attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    // Create a GeoJSON layer for cell towers
     var cellTowersLayer = L.geoJSON(cellTowers, {
       pointToLayer: function(feature, latlng) {
-        // Customize the cell tower marker
         var markerOptions = {
           radius: 8,
           fillColor: '#ff0000',
@@ -43,7 +42,6 @@
         return L.circleMarker(latlng, markerOptions);
       },
       onEachFeature: function(feature, layer) {
-        // Add a popup to each cell tower with information
         var popupContent = '<h3>Cell Tower</h3>' +
           '<p>ID: ' + feature.properties.id + '</p>' +
           '<p>Operator: ' + feature.properties.operator + '</p>' +
@@ -51,17 +49,13 @@
         layer.bindPopup(popupContent);
       }
     });
-
-    // Add the cell tower layer to a marker cluster group
     var markerClusters = L.markerClusterGroup({ showCoverageOnHover: false });
     markerClusters.addLayer(cellTowersLayer);
     map.addLayer(markerClusters);
 
-    // Add lines/links between cell towers (assuming "links" property in GeoJSON)
-    // Create a GeoJSON layer for cell towers
+    // lines/links between cell towers
     var cellTowersLayer = L.geoJSON(cellTowers, {
       pointToLayer: function(feature, latlng) {
-        // Customize the cell tower marker
         var markerOptions = {
           radius: 8,
           fillColor: '#ff0000',
@@ -73,7 +67,7 @@
         return L.circleMarker(latlng, markerOptions);
       },
       onEachFeature: function(feature, layer) {
-        // Add a popup to each cell tower with information
+        //  popup
         var popupContent = '<h3>Cell Tower</h3>' +
           '<p>ID: ' + feature.properties.OBJECTID + '</p>' +
           '<p>Operator: ' + feature.properties.Licensee + '</p>' +
@@ -81,9 +75,6 @@
         layer.bindPopup(popupContent);
       }
     });
-
-
-    // Add the cell tower links to the map
     cellTowerLinks.addTo(map);
   </script>
 </body>

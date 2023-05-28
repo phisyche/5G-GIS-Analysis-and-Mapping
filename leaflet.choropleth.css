@@ -1,6 +1,5 @@
 /* Leaflet Choropleth CSS */
 
-/* Default Popup Styles */
 .leaflet-popup-content-wrapper {
     background-color: #fff;
     color: #333;
@@ -28,7 +27,6 @@
     opacity: 1;
   }
   
-  /* Choropleth Legend Styles */
   .choropleth-legend {
     position: absolute;
     bottom: 20px;
